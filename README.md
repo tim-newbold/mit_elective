@@ -79,14 +79,3 @@ Using a pre-split `.h5` version of the SVHN dataset, I built, trained, and evalu
 
 ✅ **CNN Model 2 is the recommended architecture**  
 It delivers the highest validation accuracy and lowest overfitting, making it the most reliable model in this project.
-
----
-
-## 🚀 Run This Project
-
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/svhn-digit-recognition
-
-# Open the .ipynb file in Colab or Jupyter
-# Run all cells to see model training and results
