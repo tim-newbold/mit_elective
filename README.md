@@ -1,107 +1,92 @@
-A deep learning project focused on classifying digits from natural street-level images using both Artificial Neural Networks (ANN) and Convolutional Neural Networks (CNN). This notebook explores data preparation, modeling, and performance evaluation across several architectures to identify the best approach.
+# 🔢 SVHN Digit Recognition – CNN & ANN Comparison
 
-📌 Project Overview
-Goal:
-To classify digits (0–9) extracted from the Street View House Numbers (SVHN) dataset using both fully connected neural networks (ANNs) and convolutional neural networks (CNNs), comparing model architectures and evaluating performance on a held-out test set.
+Welcome to my deep learning project on digit classification using the **Street View House Numbers (SVHN)** dataset. This notebook-based analysis explores how different neural network architectures—Artificial Neural Networks (ANNs) and Convolutional Neural Networks (CNNs)—perform on digit recognition from real-world, street-level images.
 
-🧠 Models Trained
-🔹 ANN Model 1
-Simple architecture: 64 → 32 → 10 (softmax)
+> 📍 **Tech Stack**: TensorFlow · Keras · Python · NumPy · Matplotlib · Seaborn · Google Colab  
+> 🎯 **Purpose**: Image classification | Model comparison | Hands-on CNN/ANN architecture exploration
 
-Accuracy: ~69%
+---
 
-Minimal overfitting, but overall weak performance for image classification
+## 📊 Project Summary
 
-🔹 ANN Model 2
-Deeper network with more hidden layers and added dropout
+Using a pre-split `.h5` version of the SVHN dataset, I built, trained, and evaluated multiple neural network models to identify the most effective structure for digit classification:
 
-Accuracy: ~72%
+### 🧠 Models Trained
 
-Improved generalization but still limited by the nature of dense networks on image data
+#### 🔹 ANN Model 1  
+- **Architecture**: Dense(64) → Dense(32) → Dense(10, softmax)  
+- **Accuracy**: ~69%  
+- Fast to train, low performance on image data, minimal overfitting
 
-🔹 CNN Model 1
-2 Conv2D layers + MaxPooling + Dense
+#### 🔹 ANN Model 2  
+- **Deeper architecture with Dropout layers**  
+- **Accuracy**: ~72%  
+- Better generalization but still limited due to no spatial context
 
-Accuracy: ~91%
+#### 🔹 CNN Model 1  
+- **Architecture**: Conv2D → Conv2D → MaxPooling → Dense  
+- **Accuracy**: ~91%  
+- Strong performance, but overfitting noted on validation set
 
-High train accuracy but signs of overfitting on validation set
+#### 🔹 CNN Model 2 ✅ *Best Performer*  
+- **Architecture**: Deeper CNN + BatchNormalization + Dropout  
+- **Accuracy**: ~95% (train), ~91% (validation)  
+- Best generalization and robustness across all models
 
-🔹 CNN Model 2 ✅ Best Performer
-Deeper CNN with BatchNormalization and Dropout
+---
 
-Accuracy: ~95% (train), ~91% (validation)
+## 📂 Dataset
 
-Balanced performance with minimal overfitting and excellent generalization
+- Source: [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/) (cropped digit format)  
+- Format: `.h5` with `X_train`, `X_val`, `X_test`  
+- Image size: 32x32 pixels, grayscale  
+- Target labels: One-hot encoded (0–9)
 
-📂 Dataset
-SVHN dataset provided in .h5 format (subset used to reduce training time)
+---
 
-Pre-split into X_train, X_val, and X_test
+## ⚙️ Workflow Breakdown
 
-Images are grayscale and of size 32x32
+### 🧹 Data Prep  
+- Normalization, reshaping, and one-hot encoding  
+- ANN inputs reshaped to 1D (1024 features), CNNs used full 4D tensors
 
-⚙️ Workflow
-Data Loading – Load .h5 formatted dataset into memory
+### 🧱 Model Architecture & Training  
+- Sequential models built with TensorFlow/Keras  
+- Trained with early observations and performance visualizations  
+- Learning rate, dropout, and batch size tuned over iterations
 
-Exploration – Visualize samples and inspect class distribution
+### 📈 Evaluation  
+- Accuracy trends visualized  
+- Test predictions evaluated using `classification_report` and `confusion_matrix`  
+- Observed misclassifications, especially between visually similar digits (e.g., 3 & 5)
 
-Preprocessing – Normalize pixel values, reshape inputs, one-hot encode labels
+---
 
-Model Building – Define ANN and CNN architectures using Keras
+## 🧠 Key Learnings & Observations
 
-Training & Evaluation – Fit each model and visualize learning curves
+### ANN Takeaways  
+- ANN models are simple and fast but underperform for image tasks  
+- Accuracy improvements diminish with additional complexity  
 
-Prediction – Generate predictions on test set and evaluate using confusion matrix and classification report
+### CNN Takeaways  
+- Outperforms ANN significantly due to spatial feature learning  
+- BatchNormalization and Dropout improve generalization  
+- CNN Model 2 demonstrates near state-of-the-art performance on this subset
 
-Comparison & Conclusion – Assess model generalization and recommend best architecture
+---
 
-📊 Key Observations
-ANN
-Easy to implement and fast to train
+## 🏁 Final Verdict
 
-Lacks spatial awareness → limited classification power for image data
+✅ **CNN Model 2 is the recommended architecture**  
+It delivers the highest validation accuracy and lowest overfitting, making it the most reliable model in this project.
 
-Model complexity improves performance marginally but saturates quickly
+---
 
-CNN
-Significantly outperforms ANN due to spatial feature extraction
+## 🚀 Run This Project
 
-Adding BatchNormalization and Dropout greatly reduces overfitting
-
-Best model achieves high performance on both training and validation sets
-
-🏁 Final Verdict
-✅ CNN Model 2 is the recommended model for digit classification in this project due to its high accuracy, generalization capability, and robustness across all classes.
-
-💻 Tech Stack
-Python 3.x
-
-TensorFlow / Keras
-
-NumPy, Pandas, Seaborn, Matplotlib
-
-Scikit-learn
-
-Google Colab environment
-
-📸 Sample Outputs
-<details> <summary>📷 Sample Training Image</summary> <img src="path-to-sample-image.png" width="400"/> </details> <details> <summary>📈 Training vs Validation Accuracy</summary>
-Include training curve plots here if you'd like to embed them as images.
-
-</details>
-🚀 Run This Project
-bash
-Copy
+```bash
 # Clone the repo
 git clone https://github.com/yourusername/svhn-digit-recognition
 
-# Open the Jupyter Notebook
-# Run cells sequentially in Colab or Jupyter environment
-📌 Future Enhancements
-Implement early stopping & model checkpointing
-
-Try pretrained CNNs like VGG or ResNet for transfer learning
-
-Explore other datasets or multi-digit house number recognition
-
-Deploy as a web-based digit recognition app
+# Open the .ipynb file in Colab or Jupyter
+# Run all cells to see model training and results
